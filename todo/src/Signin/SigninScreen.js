@@ -37,6 +37,4 @@ const SigninScreen = ({ navigation }) => {
   );
 };
 
-
-
 export default SigninScreen;
