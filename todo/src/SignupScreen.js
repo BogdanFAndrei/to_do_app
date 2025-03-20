@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: 20,
         textDecorationLine: 'underline',
-        textAlign: 'center',
     },
     button2: {
         fontSize:20,
