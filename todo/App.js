@@ -4,13 +4,13 @@ import { createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
-import ToDoListScreen from "./src/ToDoList/ToDoListScreen";
-import ToDoCreateScreen from "./src/ToDoCreate/ToDoCreateScreen";
-import ToDoEditScreen from "./src/ToDoDetail/ToDoDetailScreen";
-import SigninScreen from "./src/Signin/SigninScreen";
+import ToDoListScreen from "./src/Screens/ToDoList/ToDoListScreen";
+import ToDoCreateScreen from "./src/Screens/ToDoCreate/ToDoCreateScreen";
+import ToDoEditScreen from "./src/Screens/ToDoDetail/ToDoDetailScreen";
+import SigninScreen from "./src/Screens/Signin/SigninScreen";
 
-import SignupScreen from "./src/Signup/SignupScreen";
-import AccountScreen from "./src/Account/AccountScreen";
+import SignupScreen from "./src/Screens/Signup/SignupScreen";
+import AccountScreen from "./src/Screens/Account/AccountScreen";
 
 const switchNavigator = createSwitchNavigator({
   loginFlow: createStackNavigator({
