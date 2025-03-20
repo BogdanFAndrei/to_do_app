@@ -6,11 +6,11 @@ const SignupScreen = ({ navigation }) => {
 
             <Text style={ styles.title}>Signup Screen</Text>
             <Text style={styles.text}>Username</Text>  
-            <TextInput style={styles.input} placeholder="Username" />
+            <TextInput style={styles.input} placeholder="Please enter your username" />
             <Text style={styles.text}>Email</Text>  
-            <TextInput style={styles.input} placeholder="Email" />
+            <TextInput style={styles.input} placeholder="Please enter your email" />
             <Text style={styles.text}>Password</Text>
-            <TextInput style={styles.input} placeholder="Password" />
+            <TextInput style={styles.input} placeholder="Please enter your password" />
 
 
 
@@ -53,6 +53,8 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 20,
+        textDecorationLine: 'underline',
+        textAlign: 'center',
     },
     button2: {
         fontSize:20,
