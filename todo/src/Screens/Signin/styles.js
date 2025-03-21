@@ -1,3 +1,5 @@
+import { StyleSheet } from "react-native";
+
 const SigninStyles = StyleSheet.create({
   container: {
     flex: 1,
