@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Button,
 } from "react-native";
+import { useState, useContext } from "react";
 import SigninStyles from "./styles";
 import { Context as AuthContext } from "../../context/AuthContext";
 
