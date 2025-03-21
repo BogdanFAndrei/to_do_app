@@ -53,7 +53,7 @@ const SignupScreen = ({ navigation }) => {
         title="Signup"
         onPress={() => {
           signup(username, email, password);
-          navigation.navigate("Signin");
+      
         }}
       />
 
