@@ -1,5 +1,6 @@
 require("./models/User");
 require("./models/ToDo");
+require('dotenv').config();
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -14,11 +15,11 @@ app.use(bodyParser.json());
 app.use(authRoutes);
 app.use(todoRoutes);
 
-const mongoUri =  "mongodb+srv://bogdanfandrei:8ZQkwKWldZXStL7h@todoapp.eowvk.mongodb.net/";
+const mongoUri = process.env.MONGODB_URI;
 
 if (!mongoUri) {
   throw new Error(
-    `MongoURI was not supplied.  Make sure you watch the video on setting up Mongo DB!`
+    `MongoURI was not supplied. Make sure you have set up the MONGODB_URI environment variable!`
   );
 }
 
