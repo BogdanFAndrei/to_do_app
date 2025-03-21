@@ -75,9 +75,6 @@ pids
 # Mongo URI
 mongoUri
 
-# Mongo URI
-mongoUri
-
 # OS generated files
 .DS_Store
 .DS_Store?
@@ -89,3 +86,5 @@ Thumbs.db
 
 # Specific files with sensitive info
 src/index.js
+src/models/Track.js
+src/routes/trackRoutes.js
