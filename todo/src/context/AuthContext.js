@@ -5,6 +5,8 @@ const authReducer = (state, action) => {
     switch (action.type) {
         case "signup":
             return {...state, token: action.payload};
+        case "add_error":
+            return {...state, errorMessage: action.payload};
         default:
             return state;
     }
@@ -17,7 +19,7 @@ const signup = (dispatch) => {
             console.log(response.data);
             dispatch({type: "signup", payload: response.data});
         } catch (error) {
-            console.log(error);
+            dispatch({type: "add_error", payload: "Something went wrong with signup"});
         }
     }
 }
@@ -42,7 +44,7 @@ const signout = (dispatch) => {
 export const {Provider, Context} = createDataContext(
     authReducer,
     {signup, signin, signout},
-    {isSigneIn: false },
+    {isSigneIn: false, errorMessage: "" },
 
 
     

@@ -39,6 +39,13 @@ const SignupStyles = StyleSheet.create({
     margin: 10,
     width: "100%",
   },
+  errorMessage: {
+    color: "red",
+    fontSize: 20,
+    textAlign: "center",
+    marginBottom: 20,
+    marginTop: 20,
+  },
 });
 
 export default SignupStyles;

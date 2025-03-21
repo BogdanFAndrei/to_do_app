@@ -7,7 +7,8 @@ const SignupScreen = ({ navigation }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signup } = useContext(AuthContext);
+  const { signup, state } = useContext(AuthContext);
+
   return (
     <View style={SignupStyles.container}>
       <Text style={SignupStyles.title}>Signup Screen</Text>
@@ -45,18 +46,20 @@ const SignupScreen = ({ navigation }) => {
         autoCapitalize="none"
         autoCorrect={false}
       />
-
+      
+     
       <Button
         style={SignupStyles.button}
         title="Signup"
         onPress={() => signup(username, email, password)}
       />
-
+      
       <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
         <Text style={SignupStyles.button2}>
           Already have an account? {"\n"} Signin
         </Text>
       </TouchableOpacity>
+      {state.errorMessage ? <Text style={SignupStyles.errorMessage}>{state.errorMessage}</Text> : null}
     </View>
   );
 };
