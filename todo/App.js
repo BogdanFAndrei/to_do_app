@@ -4,13 +4,12 @@ import { createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 
-import ToDoListScreen from "./src/screens/todoList/ToDoListScreen";
-import ToDoCreateScreen from "./src/screens/todoCreate/ToDoCreateScreen";
-import ToDoEditScreen from "./src/screens/todoDetail/ToDoDetailScreen";
-import SigninScreen from "./src/screens/signin/SigninScreen";
-
-import SignupScreen from "./src/screens/signup/SignupScreen";
-import AccountScreen from "./src/screens/account/AccountScreen";
+import ToDoListScreen from "./src/screens/todoList";
+import ToDoCreateScreen from "./src/screens/todoCreate";
+import ToDoEditScreen from "./src/screens/todoDetail";
+import SigninScreen from "./src/screens/signin";
+import SignupScreen from "./src/screens/signup";
+import AccountScreen from "./src/screens/account";
 
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { setNavigator } from "./src/navigationRef";
