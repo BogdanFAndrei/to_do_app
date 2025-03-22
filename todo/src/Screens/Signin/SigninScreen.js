@@ -1,3 +1,8 @@
+/**
+ * @fileoverview SigninScreen component that handles user authentication
+ * @module Screens/Signin/SigninScreen
+ */
+
 import {
   View,
   Text,
@@ -10,6 +15,17 @@ import { useState, useContext } from "react";
 import SigninStyles from "./styles";
 import { Context as AuthContext } from "../../context/AuthContext";
 
+/**
+ * SigninScreen Component
+ * 
+ * A screen component that handles user authentication through username/email and password.
+ * Provides a form for users to sign in and navigation to the signup screen.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {Object} props.navigation - Navigation object from React Navigation
+ * @returns {JSX.Element} Rendered SigninScreen component
+ */
 const SigninScreen = ({ navigation }) => {
   const { signin } = useContext(AuthContext);
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
