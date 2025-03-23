@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: "https://a939-2a01-4b00-d013-b000-3c8d-321e-a9c8-78f5.ngrok-free.app"
+    baseURL: "https://better-mugs-write.loca.lt"
 });
 
 // Add request interceptor
