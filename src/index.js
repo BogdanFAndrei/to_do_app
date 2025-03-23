@@ -5,12 +5,14 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 const todoRoutes = require("./routes/todoRoutes");
 const requireAuth = require("./middlewares/requireAuth");
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(authRoutes);
 app.use(todoRoutes);
