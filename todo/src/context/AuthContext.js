@@ -32,23 +32,29 @@ const authReducer = (state, action) => {
  */
 const signup = (dispatch) => {
   return async ({username, email, password}, callback) => {
+    console.log('AuthContext: Starting signup process with:', { username, email });
     try {
+      console.log('AuthContext: Making API call to /signup');
       const response = await trackerApi.post("/signup", {
         username,
         email,
         password,
       });
+      console.log('AuthContext: Signup API response:', response.data);
       await AsyncStorage.setItem("token", response.data.token);
+      console.log('AuthContext: Token stored in AsyncStorage');
       dispatch({ type: "signup", payload: response.data });
+      console.log('AuthContext: State updated with token');
       navigate("ToDoList");
       if (callback) {
         callback();
       }
     
     } catch (error) {
+      console.error('AuthContext: Signup error:', error.response?.data || error.message);
       dispatch({
         type: "add_error",
-        payload: "Something went wrong with signup",
+        payload: error.response?.data?.error || "Something went wrong with signup",
       });
     }
   };
