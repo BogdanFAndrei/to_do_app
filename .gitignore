@@ -6,9 +6,10 @@
 .env.production
 
 # Dependencies
-/node_modules
-/.pnp
-.pnp.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
 
 # Testing
 /coverage
@@ -88,3 +89,28 @@ Thumbs.db
 src/index.js
 src/models/Track.js
 src/routes/trackRoutes.js
+
+# Build files
+build/
+dist/
+*.bundle.js
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Sensitive information
+config/secrets.js
+secrets.js
+*.pem
+*.key
+*.cert
+*.crt
+*.p12
+*.pfx
