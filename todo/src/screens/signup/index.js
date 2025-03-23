@@ -9,6 +9,12 @@ const SignupScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const { signup, state } = useContext(AuthContext);
 
+  const handleSignup = () => {
+    console.log('SignupScreen: Signup button pressed');
+    console.log('SignupScreen: Form data:', { username, email, password: '***' });
+    signup({ username, email, password });
+  };
+
   return (
     <View style={SignupStyles.container}>
       <Text style={SignupStyles.title}>Signup Screen</Text>
@@ -19,7 +25,10 @@ const SignupScreen = ({ navigation }) => {
         style={SignupStyles.input}
         placeholder="Please enter your username"
         value={username}
-        onChangeText={newUsername => setUsername(newUsername)}
+        onChangeText={newUsername => {
+          console.log('SignupScreen: Username changed:', newUsername);
+          setUsername(newUsername);
+        }}
         autoCapitalize="none"
         autoCorrect={false}
       />
@@ -30,7 +39,10 @@ const SignupScreen = ({ navigation }) => {
         style={SignupStyles.input}
         placeholder="Please enter your email"
         value={email}
-        onChangeText={newEmail => setEmail(newEmail)}
+        onChangeText={newEmail => {
+          console.log('SignupScreen: Email changed:', newEmail);
+          setEmail(newEmail);
+        }}
         autoCapitalize="none"
         autoCorrect={false}
       />
@@ -41,7 +53,10 @@ const SignupScreen = ({ navigation }) => {
         style={SignupStyles.input}
         placeholder="Please enter your password"
         value={password}
-        onChangeText={newPassword => setPassword(newPassword)}
+        onChangeText={newPassword => {
+          console.log('SignupScreen: Password changed');
+          setPassword(newPassword);
+        }}
         secureTextEntry={true}
         autoCapitalize="none"
         autoCorrect={false}
@@ -51,10 +66,7 @@ const SignupScreen = ({ navigation }) => {
       <Button
         style={SignupStyles.button}
         title="Signup"
-        onPress={() => {
-          signup(username, email, password);
-      
-        }}
+        onPress={handleSignup}
       />
 
       <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
@@ -62,7 +74,12 @@ const SignupScreen = ({ navigation }) => {
           Already have an account? {"\n"} Signin
         </Text>
       </TouchableOpacity>
-      {state.errorMessage ? <Text style={SignupStyles.errorMessage}>{state.errorMessage}</Text> : null}
+      {state.errorMessage ? (
+        <Text style={SignupStyles.errorMessage}>
+          {console.log('SignupScreen: Error message:', state.errorMessage)}
+          {state.errorMessage}
+        </Text>
+      ) : null}
     </View>
   );
 };
