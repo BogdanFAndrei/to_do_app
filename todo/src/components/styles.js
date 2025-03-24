@@ -1,5 +1,13 @@
+/**
+ * @fileoverview Styles for authentication-related components
+ * @module components/styles
+ */
+
 import { StyleSheet } from 'react-native';
 
+/**
+ * Styles for the AuthForm component
+ */
 export const AuthFormStyles = StyleSheet.create({
   input: {
     margin: 10,
@@ -30,10 +38,9 @@ export const AuthFormStyles = StyleSheet.create({
   },    
   label: {
     fontSize: 16,
-    fontWeight: 'bold',
+    marginLeft: 10,
     marginBottom: 5,
-    textAlign: 'center',
-    marginTop: 10,
+    color: '#333',
   },
 
 });
