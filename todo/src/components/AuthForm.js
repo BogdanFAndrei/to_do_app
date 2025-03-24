@@ -1,48 +1,70 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Button } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import Spacer from './Spacer';
+import { AuthFormStyles } from './styles';
 
-const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, children }) => {
+
+const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
+
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>{headerText}</Text>
-      {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
-      {children}
-      <TouchableOpacity style={styles.button} onPress={onSubmit}>
-        <Text style={styles.buttonText}>{submitButtonText}</Text>
-      </TouchableOpacity>
+    <View style={AuthFormStyles.container}>
+
+      <Spacer />
+      <Text style={AuthFormStyles.header}>{headerText}</Text>
+
+      <Text style={AuthFormStyles.label}>Username</Text>
+      <TextInput
+        style={AuthFormStyles.input}
+        placeholder="Please enter your username"
+        value={username}
+        onChangeText={setUsername}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+
+      <Spacer />
+      <Text style={AuthFormStyles.label}>Email</Text>
+      <TextInput
+        style={AuthFormStyles.input}
+        placeholder="Please enter your email"
+        value={email}
+        onChangeText={setEmail}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+
+      <Spacer />
+      <Text style={AuthFormStyles.label}>Password</Text>
+      <TextInput
+        style={AuthFormStyles.input}
+        placeholder="Please enter your password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry={true}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+
+      {errorMessage ? <Text style={AuthFormStyles.errorMessage}>{errorMessage}</Text> : null}
+
+      <Spacer />
+      <Button 
+        style={AuthFormStyles.button}
+        title = {submitButtonText}
+        onPress={() => onSubmit({ username, email, password })}>
+                      
+      </Button>
     </View>
+
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    margin: 15,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-  },
-  errorMessage: {
-    fontSize: 16,
-    color: 'red',
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  button: {
-    backgroundColor: '#4A90E2',
-    padding: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginTop: 15,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-});
+
+
 
 export default AuthForm;
