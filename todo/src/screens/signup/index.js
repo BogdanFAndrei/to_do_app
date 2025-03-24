@@ -1,87 +1,85 @@
-import React, { useState, useContext } from "react";
-import { View, Text, TextInput, TouchableOpacity, Button } from "react-native";
+/**
+ * @fileoverview SignupScreen component that handles user registration
+ * @module Screens/Signup/SignupScreen
+ */
+
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import { useState, useContext } from "react";
 import SignupStyles from "./styles";
 import { Context as AuthContext } from "../../context/AuthContext";
+import Spacer from "../../components/Spacer";
+import AuthForm from "../../components/AuthForm";
 
+/**
+ * SignupScreen Component
+ * 
+ * A screen component that handles user registration through username, email, and password.
+ * Provides a form for users to sign up and navigation to the signin screen.
+ * 
+ * @component
+ * @param {Object} props - Component props
+ * @param {Object} props.navigation - Navigation object from React Navigation
+ * @returns {JSX.Element} Rendered SignupScreen component
+ */
 const SignupScreen = ({ navigation }) => {
+  const { state, signup } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signup, state } = useContext(AuthContext);
-
-  const handleSignup = () => {
-    console.log('SignupScreen: Signup button pressed');
-    console.log('SignupScreen: Form data:', { username, email, password: '***' });
-    signup({ username, email, password });
-  };
 
   return (
     <View style={SignupStyles.container}>
-      <Text style={SignupStyles.title}>Signup Screen</Text>
-
-      <Text style={SignupStyles.text}>Username</Text>
-
-      <TextInput
-        style={SignupStyles.input}
-        placeholder="Please enter your username"
-        value={username}
-        onChangeText={newUsername => {
-          console.log('SignupScreen: Username changed:', newUsername);
-          setUsername(newUsername);
-        }}
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-
-      <Text style={SignupStyles.text}>Email</Text>
-
-      <TextInput
-        style={SignupStyles.input}
-        placeholder="Please enter your email"
-        value={email}
-        onChangeText={newEmail => {
-          console.log('SignupScreen: Email changed:', newEmail);
-          setEmail(newEmail);
-        }}
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-
-      <Text style={SignupStyles.text}>Password</Text>
-
-      <TextInput
-        style={SignupStyles.input}
-        placeholder="Please enter your password"
-        value={password}
-        onChangeText={newPassword => {
-          console.log('SignupScreen: Password changed');
-          setPassword(newPassword);
-        }}
-        secureTextEntry={true}
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      
-     
-      <Button
-        style={SignupStyles.button}
-        title="Signup"
-        onPress={handleSignup}
-      />
-
-      <TouchableOpacity onPress={() => navigation.navigate("Signin")}>
-        <Text style={SignupStyles.button2}>
-          Already have an account? {"\n"} Signin
-        </Text>
+      <AuthForm
+        headerText="Sign Up for Tracker"
+        errorMessage={state.errorMessage}
+        submitButtonText="Sign Up"
+        onSubmit={() => signup({ username, email, password })}
+      >
+        <TextInput
+          style={SignupStyles.input}
+          placeholder="Please enter your username"
+          value={username}
+          onChangeText={setUsername}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <Spacer />
+        <TextInput
+          style={SignupStyles.input}
+          placeholder="Please enter your email"
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <Spacer />
+        <TextInput
+          style={SignupStyles.input}
+          placeholder="Please enter your password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+      </AuthForm>
+      <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
+        <Spacer>
+          <Text style={SignupStyles.link}>
+            Already have an account? Sign in instead
+          </Text>
+        </Spacer>
       </TouchableOpacity>
-      {state.errorMessage ? (
-        <Text style={SignupStyles.errorMessage}>
-          {console.log('SignupScreen: Error message:', state.errorMessage)}
-          {state.errorMessage}
-        </Text>
-      ) : null}
     </View>
   );
 };
+
+
 
 export default SignupScreen;
