@@ -1,6 +1,6 @@
 /**
  * @fileoverview SignupScreen component that handles user registration
- * @module Screens/Signup/SignupScreen
+ * @module screens/signup/SignupScreen
  */
 
 import {
@@ -13,7 +13,6 @@ import SignupStyles from "./styles";
 import { Context as AuthContext } from "../../context/AuthContext";
 import Spacer from "../../components/Spacer";
 import AuthForm from "../../components/AuthForm";
-
 
 /**
  * SignupScreen Component
@@ -28,7 +27,6 @@ import AuthForm from "../../components/AuthForm";
  */
 const SignupScreen = ({ navigation }) => {
   const { state, signup } = useContext(AuthContext);
-
 
   return (
     <View style={SignupStyles.container}>
@@ -49,7 +47,5 @@ const SignupScreen = ({ navigation }) => {
     </View>
   );
 };
-
-
 
 export default SignupScreen;
