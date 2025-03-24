@@ -1,8 +1,19 @@
+/**
+ * @fileoverview Authentication context provider for managing auth state
+ * @module context/AuthContext
+ */
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import createDataContext from "./createDataContext";
 import trackerApi from "../api/tracker";
 import { navigate } from "../navigationRef";
 
+/**
+ * Reducer function for managing authentication state
+ * @param {Object} state - Current state
+ * @param {Object} action - Action object with type and payload
+ * @returns {Object} New state
+ */
 const authReducer = (state, action) => {
   switch (action.type) {
     case "add_error":
@@ -14,6 +25,11 @@ const authReducer = (state, action) => {
   }
 };
 
+/**
+ * Action creator for user signup
+ * @param {Function} dispatch - Redux dispatch function
+ * @returns {Function} Signup function that handles user registration
+ */
 const signup =
   (dispatch) =>
   async ({ username, email, password }) => {
