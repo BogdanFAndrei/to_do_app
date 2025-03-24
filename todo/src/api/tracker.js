@@ -1,5 +1,14 @@
+/**
+ * @fileoverview API configuration module for making HTTP requests to the backend
+ * @module api/tracker
+ */
+
 import axios from "axios";
 
+/**
+ * Axios instance configured with base URL and interceptors
+ * @type {import('axios').AxiosInstance}
+ */
 const instance = axios.create({
     baseURL: "http://localhost:3000"
 });
