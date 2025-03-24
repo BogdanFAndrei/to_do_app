@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: "https://better-mugs-write.loca.lt"
+    baseURL: "https://lazy-ducks-sin.loca.lt"
 });
 
 // Add request interceptor
