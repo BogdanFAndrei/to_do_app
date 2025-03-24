@@ -6,15 +6,14 @@
 import {
   View,
   Text,
-  StyleSheet,
-  TextInput,
   TouchableOpacity,
 } from "react-native";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import SignupStyles from "./styles";
 import { Context as AuthContext } from "../../context/AuthContext";
 import Spacer from "../../components/Spacer";
 import AuthForm from "../../components/AuthForm";
+
 
 /**
  * SignupScreen Component
@@ -29,46 +28,17 @@ import AuthForm from "../../components/AuthForm";
  */
 const SignupScreen = ({ navigation }) => {
   const { state, signup } = useContext(AuthContext);
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
 
   return (
     <View style={SignupStyles.container}>
       <AuthForm
-        headerText="Sign Up for Tracker"
+        headerText="Sign Up for To Do List"
         errorMessage={state.errorMessage}
         submitButtonText="Sign Up"
-        onSubmit={() => signup({ username, email, password })}
-      >
-        <TextInput
-          style={SignupStyles.input}
-          placeholder="Please enter your username"
-          value={username}
-          onChangeText={setUsername}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <Spacer />
-        <TextInput
-          style={SignupStyles.input}
-          placeholder="Please enter your email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <Spacer />
-        <TextInput
-          style={SignupStyles.input}
-          placeholder="Please enter your password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-      </AuthForm>
+        onSubmit={signup}
+      />
+
       <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
         <Spacer>
           <Text style={SignupStyles.link}>
