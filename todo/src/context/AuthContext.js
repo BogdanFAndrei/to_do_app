@@ -16,13 +16,13 @@ const authReducer = (state, action) => {
 
 const signup =
   (dispatch) =>
-  async ({ email, password }) => {
+  async ({ username, email, password }) => {
     try {
-      const response = await trackerApi.post("/signup", { email, password });
+      const response = await trackerApi.post("/signup", { username, email, password });
       await AsyncStorage.setItem("token", response.data.token);
       dispatch({ type: "signup", payload: response.data.token });
 
-      navigate("TrackList");
+      navigate("mainFlow");
     } catch (err) {
       dispatch({
         type: "add_error",
