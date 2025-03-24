@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: "https://lazy-ducks-sin.loca.lt"
+    baseURL: "http://localhost:3000"
 });
 
 // Add request interceptor
