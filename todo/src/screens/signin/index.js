@@ -5,16 +5,14 @@
 
 import {
   View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
 } from "react-native";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { Context as AuthContext } from "../../context/AuthContext";
-import Spacer from "../../components/Spacer";
+import { NavigationEvents } from "react-navigation";
 import AuthForm from "../../components/AuthForm";
+import NavLink from "../../components/NavLink";
 import SigninStyles from "./styles";
+
 /**
  * SigninScreen Component
  * 
@@ -27,47 +25,34 @@ import SigninStyles from "./styles";
  * @returns {JSX.Element} Rendered SigninScreen component
  */
 const SigninScreen = ({ navigation }) => {
-  const { state, signin } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { state, signin, clearErrorMessage } = useContext(AuthContext);
 
   return (
     <View style={SigninStyles.container}>
+      <NavigationEvents
+        onWillFocus={clearErrorMessage}
+       
+      />
       <AuthForm
-        headerText="Sign In to Tracker"
+        headerText="Sign In for To Do List"
         errorMessage={state.errorMessage}
         submitButtonText="Sign In"
-        onSubmit={() => signin({ email, password })}
-      >
-        <TextInput
-          style={SigninStyles.input}
-          placeholder="Please enter your email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <Spacer />
-        <TextInput
-          style={SigninStyles.input}
-          placeholder="Please enter your password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-      </AuthForm>
-      <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-        <Spacer>
-          <Text style={SigninStyles.link}>
-            Don't have an account? Sign up instead
-          </Text>
-        </Spacer>
-      </TouchableOpacity>
+        onSubmit={signin}
+        isSignup={false}
+      />
+      <NavLink
+        text="Don't have an account? Sign up instead"
+        routeName="Signup"
+      />
+
     </View>
   );
 };
+SigninScreen.navigationOptions= () =>{
+  return {
+    header: null
+  }
+}
 
 
 export default SigninScreen;
