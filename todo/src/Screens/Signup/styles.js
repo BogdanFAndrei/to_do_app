@@ -13,10 +13,6 @@ const SignupStyles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
   },
-  link: {
-    color: 'blue',
-    textAlign: 'center',
-  },
 });
 
 export default SignupStyles;
