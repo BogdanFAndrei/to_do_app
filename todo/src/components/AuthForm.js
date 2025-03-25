@@ -28,6 +28,27 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSubmit = () => {
+    if (!password) {
+      onSubmit({ error: "Password is required" });
+      return;
+    }
+
+    if (isSignup) {
+      if (!username || !email) {
+        onSubmit({ error: "Username and email are required for signup" });
+        return;
+      }
+      onSubmit({ username, email, password });
+    } else {
+      if (!username && !email) {
+        onSubmit({ error: "Please provide either username or email" });
+        return;
+      }
+      onSubmit({ username, email, password });
+    }
+  };
+
   return (
     <View style={AuthFormStyles.container}>
       <Spacer />
@@ -77,7 +98,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
       <Button
         style={AuthFormStyles.button}
         title={submitButtonText}
-        onPress={() => onSubmit({ username, email, password })}
+        onPress={handleSubmit}
       />
     </View>
   );
