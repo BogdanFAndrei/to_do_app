@@ -6,7 +6,7 @@
 import {
   View,
 } from "react-native";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import SignupStyles from "./styles";
 import { Context as AuthContext } from "../../context/AuthContext";
 import AuthForm from "../../components/AuthForm";
@@ -25,7 +25,11 @@ import { NavigationEvents } from "react-navigation";
  * @returns {JSX.Element} Rendered SignupScreen component
  */
 const SignupScreen = ({ navigation }) => {
-  const { state, signup, clearErrorMessage } = useContext(AuthContext);
+  const { state, signup, clearErrorMessage, tryLocalSignin } = useContext(AuthContext);
+
+  useEffect(() => {
+    tryLocalSignin();
+  }, []);
 
   return (
     <View style={SignupStyles.container}>
