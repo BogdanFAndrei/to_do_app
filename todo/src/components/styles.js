@@ -42,5 +42,13 @@ export const AuthFormStyles = StyleSheet.create({
     marginBottom: 5,
     color: '#333',
   },
+  helperText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginTop: 5,
+    marginHorizontal: 10,
+    fontStyle: 'italic'
+  }
 
 });
