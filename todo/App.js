@@ -13,8 +13,10 @@ import AccountScreen from "./src/screens/account";
 
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { setNavigator } from "./src/navigationRef";
+import ResolveAuthScreen from "./src/screens/resolveAuth";
 
 const switchNavigator = createSwitchNavigator({
+  ResolveAuth: ResolveAuthScreen,
   loginFlow: createStackNavigator({
     Signup: SignupScreen,
     Signin: SigninScreen,
@@ -27,6 +29,7 @@ const switchNavigator = createSwitchNavigator({
     Account: AccountScreen,
     ToDoCreate: ToDoCreateScreen,
   }),
+  
 });
 
 const App = createAppContainer(switchNavigator);
