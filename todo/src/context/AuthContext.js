@@ -20,6 +20,10 @@ const authReducer = (state, action) => {
       return { ...state, errorMessage: action.payload };
     case "signup":
       return { errorMessage: "", token: action.payload };
+    case "signin":
+      return { errorMessage: "", token: action.payload };
+    case "clear_error_message":
+      return { ...state, errorMessage: "" };
     default:
       return state;
   }
@@ -30,11 +34,17 @@ const authReducer = (state, action) => {
  * @param {Function} dispatch - Redux dispatch function
  * @returns {Function} Signup function that handles user registration
  */
+const clearErrorMessage = (dispatch) => {
+  return () => {
+    dispatch({ type: "clear_error_message" });
+  };
+};
+
 const signup =
   (dispatch) =>
-  async ({ username, email, password }) => {
+  async ({ usernameOrEmail, password }) => {
     try {
-      const response = await trackerApi.post("/signup", { username, email, password });
+      const response = await trackerApi.post("/signup", { usernameOrEmail, password });
       await AsyncStorage.setItem("token", response.data.token);
       dispatch({ type: "signup", payload: response.data.token });
 
@@ -47,11 +57,24 @@ const signup =
     }
   };
 
+ 
+  
+
 const signin = (dispatch) => {
-  return ({ email, password }) => {
-    // Try to signin
-    // Handle success by updating state
-    // Handle failure by showing error message (somehow)
+  return async ({ username, email, password }) => {
+    try{
+      const usernameOrEmail =  username || email;
+      const response = await trackerApi.post('/signin', {usernameOrEmail, password})
+      await AsyncStorage.setItem("token", response.data.token);
+      dispatch({ type: "signin", payload: response.data.token });
+      navigate("mainFlow");
+    }catch (err){
+      console.log(err);
+      dispatch({
+        type: "add_error",
+        payload: "Something went wrong with sign in",
+      });
+    }
   };
 };
 
@@ -63,6 +86,6 @@ const signout = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
   authReducer,
-  { signin, signout, signup },
+  { signin, signout, signup, clearErrorMessage },
   { token: null, errorMessage: "" }
 );
