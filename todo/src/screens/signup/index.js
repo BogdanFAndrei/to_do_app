@@ -5,14 +5,13 @@
 
 import {
   View,
-  Text,
-  TouchableOpacity,
 } from "react-native";
 import { useContext } from "react";
 import SignupStyles from "./styles";
 import { Context as AuthContext } from "../../context/AuthContext";
-import Spacer from "../../components/Spacer";
 import AuthForm from "../../components/AuthForm";
+import NavLink from "../../components/NavLink";
+import { NavigationEvents } from "react-navigation";
 
 /**
  * SignupScreen Component
@@ -26,26 +25,31 @@ import AuthForm from "../../components/AuthForm";
  * @returns {JSX.Element} Rendered SignupScreen component
  */
 const SignupScreen = ({ navigation }) => {
-  const { state, signup } = useContext(AuthContext);
+  const { state, signup, clearErrorMessage } = useContext(AuthContext);
 
   return (
     <View style={SignupStyles.container}>
+     <NavigationEvents onWillFocus={clearErrorMessage}/>
       <AuthForm
         headerText="Sign Up for To Do List"
         errorMessage={state.errorMessage}
         submitButtonText="Sign Up"
         onSubmit={signup}
+        isSignup={true}
       />
 
-      <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
-        <Spacer>
-          <Text style={SignupStyles.link}>
-            Already have an account? Sign in instead
-          </Text>
-        </Spacer>
-      </TouchableOpacity>
+      <NavLink
+        text="Already have an account? Sign in instead"
+        routeName="Signin"
+      />
     </View>
   );
 };
+
+SignupScreen.navigationOptions = () => {
+  return {
+    header: null
+  }
+}
 
 export default SignupScreen;
