@@ -23,7 +23,7 @@ import { AuthFormStyles } from './styles';
  * @param {string} props.submitButtonText - Text to display on the submit button
  * @returns {JSX.Element} Rendered AuthForm component
  */
-const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
+const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSignup }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -66,10 +66,15 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
         autoCorrect={false}
       />
 
+      {!isSignup && (
+        <Text style={AuthFormStyles.helperText}>
+          Note: You can sign in with either your username or email
+        </Text>
+      )}
       {errorMessage ? <Text style={AuthFormStyles.errorMessage}>{errorMessage}</Text> : null}
 
       <Spacer />
-      <Button 
+      <Button
         style={AuthFormStyles.button}
         title={submitButtonText}
         onPress={() => onSubmit({ username, email, password })}
