@@ -3,12 +3,13 @@
  * @module Screens/Signin/SigninScreen
  */
 
+import React from 'react';
 import {
   View,
 } from "react-native";
 import { useContext } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { Context as AuthContext } from "../../context/AuthContext";
-import { NavigationEvents } from "react-navigation";
 import AuthForm from "../../components/AuthForm";
 import NavLink from "../../components/NavLink";
 import SigninStyles from "./styles";
@@ -27,12 +28,14 @@ import SigninStyles from "./styles";
 const SigninScreen = ({ navigation }) => {
   const { state, signin, clearErrorMessage } = useContext(AuthContext);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      clearErrorMessage();
+    }, [])
+  );
+
   return (
     <View style={SigninStyles.container}>
-      <NavigationEvents
-        onWillFocus={clearErrorMessage}
-       
-      />
       <AuthForm
         headerText="Sign In for To Do List"
         errorMessage={state.errorMessage}
@@ -44,15 +47,8 @@ const SigninScreen = ({ navigation }) => {
         text="Don't have an account? Sign up instead"
         routeName="Signup"
       />
-
     </View>
   );
 };
-SigninScreen.navigationOptions= () =>{
-  return {
-    header: null
-  }
-}
-
 
 export default SigninScreen;
