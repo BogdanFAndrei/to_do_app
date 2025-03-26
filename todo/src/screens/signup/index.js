@@ -3,15 +3,16 @@
  * @module screens/signup/SignupScreen
  */
 
+import React from 'react';
 import {
   View,
 } from "react-native";
 import { useContext } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import SignupStyles from "./styles";
 import { Context as AuthContext } from "../../context/AuthContext";
 import AuthForm from "../../components/AuthForm";
 import NavLink from "../../components/NavLink";
-import { NavigationEvents } from "react-navigation";
 
 /**
  * SignupScreen Component
@@ -27,10 +28,14 @@ import { NavigationEvents } from "react-navigation";
 const SignupScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(AuthContext);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      clearErrorMessage();
+    }, [])
+  );
 
   return (
     <View style={SignupStyles.container}>
-     <NavigationEvents onWillFocus={clearErrorMessage}/>
       <AuthForm
         headerText="Sign Up for To Do List"
         errorMessage={state.errorMessage}
