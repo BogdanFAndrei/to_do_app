@@ -44,7 +44,7 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TodoListStack = () => (
-  <Stack.Navigator>
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="ToDoList" component={ToDoListScreen} />
     <Stack.Screen name="ToDoEdit" component={ToDoEditScreen} />
   </Stack.Navigator>
@@ -59,7 +59,14 @@ const LoginStack = () => (
 
 const MainTabs = () => (
   <Tab.Navigator>
-    <Tab.Screen name="todoListFlow" component={TodoListStack} />
+    <Tab.Screen 
+      name="todoListFlow" 
+      component={TodoListStack}
+      options={{
+        title: 'ToDo List',
+        headerShown: true
+      }}
+    />
     <Tab.Screen name="Account" component={AccountScreen} />
     <Tab.Screen name="ToDoCreate" component={ToDoCreateScreen} />
   </Tab.Navigator>
