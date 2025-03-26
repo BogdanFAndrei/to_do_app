@@ -29,20 +29,17 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, isSign
   const [password, setPassword] = useState("");
 
   const handleSubmit = () => {
-    if (!password) {
-      onSubmit({ error: "Password is required" });
-      return;
-    }
+   
 
     if (isSignup) {
-      if (!username || !email) {
-        onSubmit({ error: "Username and email are required for signup" });
+      if (!username || !email || !password) {
+        onSubmit({ error: "Username, email and password are required for signup" });
         return;
       }
       onSubmit({ username, email, password });
     } else {
       if (!username && !email) {
-        onSubmit({ error: "Please provide either username or email" });
+        onSubmit({ error: "Please provide either username or email, and password" });
         return;
       }
       onSubmit({ username, email, password });
