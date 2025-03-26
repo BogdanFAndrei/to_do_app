@@ -1,3 +1,25 @@
+/**
+ * Main Application Component
+ * 
+ * This file serves as the root component of the Todo application.
+ * It sets up the navigation structure and authentication flow using React Navigation.
+ * 
+ * Navigation Structure:
+ * - ResolveAuth: Initial authentication check screen
+ * - loginFlow: Stack navigator for authentication screens
+ *   - Signup: User registration screen
+ *   - Signin: User login screen
+ * - mainFlow: Bottom tab navigator for main app screens
+ *   - todoListFlow: Stack navigator for todo management
+ *     - ToDoList: Main todo list screen
+ *     - ToDoEdit: Todo item edit screen
+ *   - Account: User account management screen
+ *   - ToDoCreate: Create new todo item screen
+ * 
+ * The app is wrapped in an AuthProvider to manage authentication state
+ * and uses a custom navigation reference for programmatic navigation.
+ */
+
 import React from "react";
 import { createAppContainer } from "react-navigation";
 import { createSwitchNavigator } from "react-navigation";
