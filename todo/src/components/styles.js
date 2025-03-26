@@ -52,3 +52,5 @@ export const AuthFormStyles = StyleSheet.create({
   }
 
 });
+
+export default AuthFormStyles;

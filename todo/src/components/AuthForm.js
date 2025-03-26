@@ -8,7 +8,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import Spacer from './Spacer';
 import { Button } from 'react-native';
-import { AuthFormStyles } from './styles';
+import AuthFormStyles from './styles';
 
 /**
  * AuthForm Component
