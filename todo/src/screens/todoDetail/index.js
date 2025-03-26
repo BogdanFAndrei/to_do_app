@@ -3,7 +3,15 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Context as TodoContext } from '../../context/TodoContext';
 
 const ToDoDetail = ({ route }) => {
-    const { todo } = route.params;
+    const todo = route.params?.todo;
+
+    if (!todo) {
+        return (
+            <View style={[styles.container, styles.centerContent]}>
+                <Text style={styles.errorText}>Note not found</Text>
+            </View>
+        );
+    }
 
     return (
         <ScrollView style={styles.container}>
@@ -23,6 +31,10 @@ const styles = StyleSheet.create({
     contentContainer: {
         padding: 16,
     },
+    centerContent: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
@@ -31,6 +43,10 @@ const styles = StyleSheet.create({
     content: {
         fontSize: 16,
         lineHeight: 24,
+    },
+    errorText: {
+        fontSize: 16,
+        color: '#666',
     },
 });
 

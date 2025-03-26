@@ -54,7 +54,7 @@ const TodoListStack = () => (
       name="ToDoEdit" 
       component={ToDoEditScreen}
       options={({ route }) => ({
-        title: route.params.todo.title,
+        title: route.params?.todo?.title || 'Note Details',
         headerStyle: {
           backgroundColor: '#fff',
         },
