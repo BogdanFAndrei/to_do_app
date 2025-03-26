@@ -33,7 +33,7 @@ const ToDoListScreen = () => {
   const renderTodoCard = ({ item }) => (
     <TouchableOpacity
       style={styles.card}
-      onPress={() => navigation.navigate('ToDoEdit', { id: item.id })}
+      onPress={() => navigation.navigate('ToDoEdit', { todo: item })}
     >
       <View style={styles.cardHeader}>
         <Text style={[styles.title, { color: item.textColor }]}>{item.title}</Text>
