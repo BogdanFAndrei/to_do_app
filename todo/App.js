@@ -20,46 +20,64 @@
  * and uses a custom navigation reference for programmatic navigation.
  */
 
-import React from "react";
-import { createAppContainer } from "react-navigation";
-import { createSwitchNavigator } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { createBottomTabNavigator } from "react-navigation-tabs";
+import { enableScreens } from 'react-native-screens';
+enableScreens();
 
-import ToDoListScreen from "./src/screens/todoList";
-import ToDoCreateScreen from "./src/screens/todoCreate";
-import ToDoEditScreen from "./src/screens/todoDetail";
-import SigninScreen from "./src/screens/signin";
-import SignupScreen from "./src/screens/signup";
-import AccountScreen from "./src/screens/account";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+import ToDoListScreen from "./src/screens/todoList/index";
+import ToDoCreateScreen from "./src/screens/todoCreate/index";
+import ToDoEditScreen from "./src/screens/todoDetail/index";
+import SigninScreen from "./src/screens/signin/index";
+import SignupScreen from "./src/screens/signup/index";
+import AccountScreen from "./src/screens/account/index";
 
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { setNavigator } from "./src/navigationRef";
-import ResolveAuthScreen from "./src/screens/resolveAuth";
+import ResolveAuthScreen from "./src/screens/resolveAuth/index";
 
-const switchNavigator = createSwitchNavigator({
-  ResolveAuth: ResolveAuthScreen,
-  loginFlow: createStackNavigator({
-    Signup: SignupScreen,
-    Signin: SigninScreen,
-  }),
-  mainFlow: createBottomTabNavigator({
-    todoListFlow: createStackNavigator({
-      ToDoList: ToDoListScreen,
-      ToDoEdit: ToDoEditScreen,
-    }),
-    Account: AccountScreen,
-    ToDoCreate: ToDoCreateScreen,
-  }),
-  
-});
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const App = createAppContainer(switchNavigator);
+const TodoListStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="ToDoList" component={ToDoListScreen} />
+    <Stack.Screen name="ToDoEdit" component={ToDoEditScreen} />
+  </Stack.Navigator>
+);
+
+const LoginStack = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="Signup" component={SignupScreen} />
+    <Stack.Screen name="Signin" component={SigninScreen} />
+  </Stack.Navigator>
+);
+
+const MainTabs = () => (
+  <Tab.Navigator>
+    <Tab.Screen name="todoListFlow" component={TodoListStack} />
+    <Tab.Screen name="Account" component={AccountScreen} />
+    <Tab.Screen name="ToDoCreate" component={ToDoCreateScreen} />
+  </Tab.Navigator>
+);
+
+const RootStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="ResolveAuth" component={ResolveAuthScreen} />
+    <Stack.Screen name="loginFlow" component={LoginStack} />
+    <Stack.Screen name="mainFlow" component={MainTabs} />
+  </Stack.Navigator>
+);
 
 export default () => {
   return (
     <AuthProvider>
-      <App ref={(navigator) => setNavigator(navigator)} />
+      <NavigationContainer ref={(navigator) => setNavigator(navigator)}>
+        <RootStack />
+      </NavigationContainer>
     </AuthProvider>
   );
 };
