@@ -56,6 +56,6 @@ export const todoCreateStyles = StyleSheet.create({
       fontSize: 16,
       lineHeight: 24,
     },
-  });
+    });
 
 export default todoCreateStyles;
