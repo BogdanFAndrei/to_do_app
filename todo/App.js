@@ -44,9 +44,23 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const TodoListStack = () => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="ToDoList" component={ToDoListScreen} />
-    <Stack.Screen name="ToDoEdit" component={ToDoEditScreen} />
+  <Stack.Navigator>
+    <Stack.Screen 
+      name="ToDoList" 
+      component={ToDoListScreen}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen 
+      name="ToDoEdit" 
+      component={ToDoEditScreen}
+      options={({ route }) => ({
+        title: route.params.todo.title,
+        headerStyle: {
+          backgroundColor: '#fff',
+        },
+        headerTintColor: '#000',
+      })}
+    />
   </Stack.Navigator>
 );
 
