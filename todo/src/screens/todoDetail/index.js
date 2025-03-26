@@ -1,6 +1,5 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { Context as TodoContext } from '../../context/TodoContext';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
 
 const ToDoDetail = ({ route }) => {
     const todo = route.params?.todo;
@@ -16,7 +15,13 @@ const ToDoDetail = ({ route }) => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.contentContainer}>
-                <Text style={[styles.title, { color: todo.textColor }]}>{todo.title}</Text>
+                <View style={styles.titleContainer}>
+                    <Text style={[styles.title, { color: todo.textColor }]}>{todo.title}</Text>
+                    <Text style={styles.date}>
+                        {new Date(todo.createdAt).toLocaleDateString()}
+                    </Text>
+                </View>
+                <View style={styles.divider} />
                 <Text style={[styles.content, { color: todo.textColor }]}>{todo.content}</Text>
             </View>
         </ScrollView>
@@ -29,20 +34,48 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     contentContainer: {
-        padding: 16,
+        padding: 20,
     },
     centerContent: {
         justifyContent: 'center',
         alignItems: 'center',
     },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
+    titleContainer: {
         marginBottom: 16,
+        backgroundColor: '#f8f8f8',
+        padding: 16,
+        borderRadius: 12,
+        ...Platform.select({
+            ios: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 1 },
+                shadowOpacity: 0.1,
+                shadowRadius: 2,
+            },
+            android: {
+                elevation: 2,
+            },
+        }),
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        marginBottom: 8,
+    },
+    date: {
+        fontSize: 14,
+        color: '#666',
+    },
+    divider: {
+        height: 1,
+        backgroundColor: '#e0e0e0',
+        marginVertical: 20,
     },
     content: {
         fontSize: 16,
         lineHeight: 24,
+        color: '#333',
+        paddingHorizontal: 4,
     },
     errorText: {
         fontSize: 16,
