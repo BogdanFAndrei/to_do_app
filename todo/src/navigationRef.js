@@ -3,7 +3,7 @@
  * @module navigationRef
  */
 
-import { NavigationActions } from "react-navigation";
+import { createNavigationContainerRef } from '@react-navigation/native';
 
 /**
  * Global navigator reference
@@ -25,10 +25,9 @@ export const setNavigator = (nav) => {
  * @param {Object} [params] - Optional parameters to pass to the route
  */
 export const navigate = (routeName, params) => {
-    navigator.dispatch( 
-        NavigationActions.navigate({
-            routeName, 
-            params
-        })
-    );
+    if (routeName === 'Signup' || routeName === 'Signin') {
+        navigator.navigate('loginFlow', { screen: routeName, ...params });
+    } else {
+        navigator.navigate(routeName, params);
+    }
 };
