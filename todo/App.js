@@ -36,6 +36,7 @@ import SignupScreen from "./src/screens/signup/index";
 import AccountScreen from "./src/screens/account/index";
 
 import { Provider as AuthProvider } from "./src/context/AuthContext";
+import { Provider as TodoProvider } from "./src/context/TodoContext";
 import { setNavigator } from "./src/navigationRef";
 import ResolveAuthScreen from "./src/screens/resolveAuth/index";
 
@@ -75,9 +76,11 @@ const RootStack = () => (
 export default () => {
   return (
     <AuthProvider>
-      <NavigationContainer ref={(navigator) => setNavigator(navigator)}>
-        <RootStack />
-      </NavigationContainer>
+      <TodoProvider>
+        <NavigationContainer ref={(navigator) => setNavigator(navigator)}>
+          <RootStack />
+        </NavigationContainer>
+      </TodoProvider>
     </AuthProvider>
   );
 };
