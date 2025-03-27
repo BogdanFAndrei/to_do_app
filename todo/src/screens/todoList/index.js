@@ -37,9 +37,9 @@ const ToDoListScreen = () => {
       onPress={() => navigation.navigate('ToDoEdit', { todo: item })}
     >
       <View style={todoListStyles.cardHeader}>
-        <Text style={[todoListStyles.title, { color: item.textColor }]}>{item.title}</Text>
+        <Text style={[todoListStyles.title, { color: item.color }]}>{item.title}</Text>
         <TouchableOpacity
-          onPress={() => deleteTodo(item.id)}
+          onPress={() => deleteTodo(item._id)}
           style={todoListStyles.deleteButton}
         >
           <Icon name="delete" size={24} color="#FF3B30" />
@@ -48,7 +48,7 @@ const ToDoListScreen = () => {
       <Text style={todoListStyles.date}>
         {new Date(item.createdAt).toLocaleDateString()}
       </Text>
-      {item.isChecklist && (
+      {item.completed && (
         <Icon name="check-box" size={16} color="#007AFF" style={todoListStyles.checklistIcon} />
       )}
     </TouchableOpacity>
@@ -59,7 +59,7 @@ const ToDoListScreen = () => {
       <FlatList
         data={todos}
         renderItem={renderTodoCard}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
         contentContainerStyle={todoListStyles.list}
         ListEmptyComponent={
           <View style={todoListStyles.emptyContainer}>
@@ -82,7 +82,5 @@ const ToDoListScreen = () => {
     </View>
   );
 };
-
-
 
 export default ToDoListScreen;
