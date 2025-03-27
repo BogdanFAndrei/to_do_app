@@ -12,7 +12,13 @@ const requireAuth = require("./middlewares/requireAuth");
 
 const app = express();
 
-app.use(cors());
+// Configure CORS to accept requests from your mobile app
+app.use(cors({
+  origin: '*', // In production, replace with your app's domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(bodyParser.json());
 app.use(authRoutes);
 app.use(todoRoutes);
@@ -44,6 +50,16 @@ app.get("/", requireAuth, (req, res) => {
   res.send(`Your email: ${req.user.email}`);
 });
 
-app.listen(3000, () => {
-  console.log("Listening on port 3000");
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong!', error: err.message });
+});
+
+const PORT = process.env.PORT || 3000;
+const HOST = '0.0.0.0'; // Listen on all interfaces
+
+app.listen(PORT, HOST, () => {
+  console.log(`Server is running on http://${HOST}:${PORT}`);
+  console.log('Make sure your mobile device is on the same network and using the correct IP address');
 });
