@@ -25,6 +25,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { Context as TodoContext } from '../../context/TodoContext';
+import todoListStyles from './styles';
 
 const ToDoListScreen = () => {
   const navigation = useNavigation();
@@ -32,39 +33,39 @@ const ToDoListScreen = () => {
 
   const renderTodoCard = ({ item }) => (
     <TouchableOpacity
-      style={styles.card}
+      style={todoListStyles.card}
       onPress={() => navigation.navigate('ToDoEdit', { todo: item })}
     >
-      <View style={styles.cardHeader}>
-        <Text style={[styles.title, { color: item.textColor }]}>{item.title}</Text>
+      <View style={todoListStyles.cardHeader}>
+        <Text style={[todoListStyles.title, { color: item.textColor }]}>{item.title}</Text>
         <TouchableOpacity
           onPress={() => deleteTodo(item.id)}
-          style={styles.deleteButton}
+          style={todoListStyles.deleteButton}
         >
           <Icon name="delete" size={24} color="#FF3B30" />
         </TouchableOpacity>
       </View>
-      <Text style={styles.date}>
+      <Text style={todoListStyles.date}>
         {new Date(item.createdAt).toLocaleDateString()}
       </Text>
       {item.isChecklist && (
-        <Icon name="check-box" size={16} color="#007AFF" style={styles.checklistIcon} />
+        <Icon name="check-box" size={16} color="#007AFF" style={todoListStyles.checklistIcon} />
       )}
     </TouchableOpacity>
   );
 
   return (
-    <View style={styles.container}>
+    <View style={todoListStyles.container}>
       <FlatList
         data={todos}
         renderItem={renderTodoCard}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={styles.list}
+        contentContainerStyle={todoListStyles.list}
         ListEmptyComponent={
-          <View style={styles.emptyContainer}>
-            <Text style={styles.emptyText}>No todos yet</Text>
+          <View style={todoListStyles.emptyContainer}>
+            <Text style={todoListStyles.emptyText}>No todos yet</Text>
             <TouchableOpacity
-              style={styles.addButton}
+              style={todoListStyles.addButton}
               onPress={() => navigation.navigate('ToDoCreate')}
             >
               <Icon name="add" size={24} color="#fff" />
@@ -73,7 +74,7 @@ const ToDoListScreen = () => {
         }
       />
       <TouchableOpacity
-        style={styles.fab}
+        style={todoListStyles.fab}
         onPress={() => navigation.navigate('ToDoCreate')}
       >
         <Icon name="add" size={24} color="#fff" />
@@ -82,95 +83,6 @@ const ToDoListScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f5f5f5',
-  },
-  list: {
-    padding: 16,
-  },
-  card: {
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 16,
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-      },
-      android: {
-        elevation: 4,
-      },
-    }),
-  },
-  cardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    flex: 1,
-    marginRight: 8,
-  },
-  date: {
-    fontSize: 12,
-    color: '#666',
-    marginBottom: 4,
-  },
-  checklistIcon: {
-    marginTop: 4,
-  },
-  deleteButton: {
-    padding: 4,
-  },
-  fab: {
-    position: 'absolute',
-    right: 16,
-    bottom: 16,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#007AFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-      },
-      android: {
-        elevation: 8,
-      },
-    }),
-  },
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 100,
-  },
-  emptyText: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 16,
-  },
-  addButton: {
-    backgroundColor: '#007AFF',
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+
 
 export default ToDoListScreen;
