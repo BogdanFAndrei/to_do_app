@@ -113,4 +113,4 @@ secrets.js
 *.cert
 *.crt
 *.p12
-*.pfx
+*.pfxtodo/.env
