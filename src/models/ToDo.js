@@ -13,26 +13,17 @@ const todoSchema = new Schema({
     required: true,
     trim: true
   },
-  description: {
+  content: {
     type: String,
-    trim: true
+    required: true
   },
-  dueDate: {
-    type: Date
-  },
-  status: {
+  color: {
     type: String,
-    enum: ['pending', 'completed', 'archived'],
-    default: 'pending'
+    default: '#000000'
   },
-  priority: {
-    type: String,
-    enum: ['low', 'medium', 'high'],
-    default: 'medium'
-  },
-  category: {
-    type: String,
-    default: 'general'
+  completed: {
+    type: Boolean,
+    default: false
   },
   createdAt: {
     type: Date,
@@ -44,4 +35,6 @@ const todoSchema = new Schema({
   }
 });
 
-mongoose.model('ToDo', todoSchema);
+const ToDo = mongoose.model('ToDo', todoSchema);
+
+module.exports = ToDo;

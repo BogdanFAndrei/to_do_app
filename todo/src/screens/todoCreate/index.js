@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -18,30 +19,46 @@ const ToDoCreateScreen = () => {
   const [content, setContent] = useState('');
   const [isChecklist, setIsChecklist] = useState(false);
   const [textColor, setTextColor] = useState('#000000');
+  const [isSaving, setIsSaving] = useState(false);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!title.trim()) {
-      // Show error message if title is empty
       Alert.alert('Error', 'Please enter a title for your todo');
       return;
     }
 
-    addTodo({
-      id: Date.now().toString(),
-      title: title.trim(),
-      content: content.trim(),
-      isChecklist,
-      textColor,
-      createdAt: new Date(),
-    });
-
-    navigation.navigate('todoListFlow', { screen: 'ToDoList' });
+    try {
+      setIsSaving(true);
+      console.log('Attempting to save todo:', {
+        title: title.trim(),
+        content: content.trim(),
+        color: textColor,
+        completed: false,
+      });
+      
+      const result = await addTodo({
+        title: title.trim(),
+        content: content.trim(),
+        color: textColor,
+        completed: false,
+      });
+      
+      console.log('Save successful:', result);
+      navigation.navigate('ToDoList');
+    } catch (error) {
+      console.error('Save error:', error);
+      Alert.alert(
+        'Error',
+        `Failed to save todo: ${error.message || 'Unknown error'}`
+      );
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleChecklistToggle = () => {
     setIsChecklist(!isChecklist);
     if (!isChecklist) {
-      // Add checklist template
       setContent(content + '\n- [ ] New task\n');
     }
   };
@@ -56,8 +73,12 @@ const ToDoCreateScreen = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Icon name="arrow-back" size={24} color="#000" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleSave}>
-          <Icon name="save" size={24} color="#000" />
+        <TouchableOpacity onPress={handleSave} disabled={isSaving}>
+          {isSaving ? (
+            <ActivityIndicator size="small" color="#000" />
+          ) : (
+            <Icon name="save" size={24} color="#000" />
+          )}
         </TouchableOpacity>
       </View>
 
@@ -108,7 +129,5 @@ const ToDoCreateScreen = () => {
     </View>
   );
 };
-
-
 
 export default ToDoCreateScreen;
